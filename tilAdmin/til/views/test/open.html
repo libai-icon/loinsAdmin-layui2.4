@@ -1,0 +1,196 @@
+<div class="layui-fluid" id="VIEW-chart-index" lay-title="数据统计">
+    <div id="layerDemo">
+
+        <button class="layui-btn" data-method="confirmTrans">默认按钮</button>
+    </div>
+
+</div>
+
+<script>
+    layui.use(['admin', 'echarts', 'table'], function(admin, code) {
+        var $ = layui.jquery,
+            layer = layui.layer, //独立版的layer无需执行这一句
+            table = layui.table;
+        parent.layer.loins;
+        delete(parent.layer.loins); //为什么要做这一步操作
+        var active = {
+            confirmTrans: function() {
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index); //关闭当前页
+
+                // window.parent.location.replace(location.href)//刷新父级页面
+            }
+        }
+
+        $('#layerDemo .layui-btn').on('click', function() {
+            var othis = $(this),
+                method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+    })
+</script>
+<style>
+    * {
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+    }
+    
+    html {
+        -webkit-text-size-adjust: none;
+        text-size-adjust: none;
+    }
+    
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+    }
+    
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    div,
+    ul,
+    ol,
+    li,
+    dl,
+    dt,
+    dd,
+    iframe,
+    textarea,
+    input,
+    button,
+    p,
+    strong,
+    b,
+    i,
+    a,
+    span,
+    del,
+    pre,
+    table,
+    tr,
+    th,
+    td,
+    form,
+    fieldset,
+    .pr,
+    .pc {
+        margin: 0;
+        padding: 0;
+        word-wrap: break-word;
+        font-family: verdana, Microsoft YaHei, Tahoma, sans-serif;
+        *font-family: Microsoft YaHei, verdana, Tahoma, sans-serif;
+    }
+    
+    body,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    form,
+    fieldset,
+    .pr,
+    .pc,
+    em,
+    del {
+        font-style: normal;
+        font-size: 100%;
+    }
+    
+    ul,
+    ol,
+    dl {
+        list-style: none;
+    }
+    
+    ._citys {
+        width: 450px;
+        display: inline-block;
+        border: 2px solid #eee;
+        padding: 5px;
+        position: relative;
+    }
+    
+    ._citys span {
+        color: #56b4f8;
+        height: 15px;
+        width: 15px;
+        line-height: 15px;
+        text-align: center;
+        border-radius: 3px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        border: 1px solid #56b4f8;
+        cursor: pointer;
+    }
+    
+    ._citys0 {
+        width: 100%;
+        height: 34px;
+        display: inline-block;
+        border-bottom: 2px solid #56b4f8;
+        padding: 0;
+        margin: 0;
+    }
+    
+    ._citys0 li {
+        display: inline-block;
+        line-height: 34px;
+        font-size: 15px;
+        color: #888;
+        width: 80px;
+        text-align: center;
+        cursor: pointer;
+    }
+    
+    .citySel {
+        background-color: #56b4f8;
+        color: #fff !important;
+    }
+    
+    ._citys1 {
+        width: 100%;
+        display: inline-block;
+        padding: 10px 0;
+    }
+    
+    ._citys1 a {
+        width: 83px;
+        height: 35px;
+        display: inline-block;
+        background-color: #f5f5f5;
+        color: #666;
+        margin-left: 6px;
+        margin-top: 3px;
+        line-height: 35px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 13px;
+        overflow: hidden;
+    }
+    
+    ._citys1 a:hover {
+        color: #fff;
+        background-color: #56b4f8;
+    }
+    
+    .AreaS {
+        background-color: #56b4f8 !important;
+        color: #fff !important;
+    }
+</style>

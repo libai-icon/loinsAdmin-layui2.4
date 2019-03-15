@@ -1,0 +1,56 @@
+<div class="layui-fluid" id="VIEW-TEST-FROMSELECT" lay-title="FROMSELECT">
+    <select name="city" xm-select="select7_1" xm-select-search="">
+        <option value="1" disabled="disabled">北京</option>
+        <option value="2" selected="selected">上海</option>
+        <option value="3">广州</option>
+        <option value="4" selected="selected">深圳</option>
+        <option value="5">天津</option>
+    </select>
+</div>
+<script>
+    layui.config({
+        version: new Utils().VersionTimeStamp()
+    });
+    layui.extend({
+        // index: 'lib/index' //主入口模块
+        formSelects: 'lib/formSelect/formSelects-v4' // {/}的意思即代表采用自有路径，即不跟随 base 路径
+    })
+    layui.use(['formSelects', ], function(formSelects) {
+        var formSelects = layui.formSelects;
+        formSelects.render('select1', {
+            init: ["1", "2"], //默认值
+            skin: "danger", //多选皮肤
+            height: "auto", //是否固定高度, 38px | auto
+            radio: false, //是否设置为单选模式
+            direction: "auto",
+            create: function(id, name) {
+                console.log(id); //多选id
+                console.log(name); //创建的标签名称
+
+                return Date.now(); //返回该标签对应的val
+            },
+            filter: function() {
+
+            }, //同formSelects.filter			
+            max: 3, //多选最多选择量			
+            maxTips: function() {
+
+            }, //同formSelects.maxTips
+            on: function() {
+
+            }, //同formSelects.on
+            searchType: "title", //搜索框的位置			
+            template: function(name, value, selected, disabled) {
+                console.log(name); //选项名
+                console.log(value); //选项值
+                console.log(selected); //是否被选中
+                console.log(disabled); //是否被禁用
+
+                //例如: 反转字符串
+                //return name.split('').reverse().join('');
+                return name; //返回一个html结构, 用于显示选项
+            },
+            showCount: 0, //多选的label数量, 0,负值,非数字则显示全部
+        });
+    })
+</script>

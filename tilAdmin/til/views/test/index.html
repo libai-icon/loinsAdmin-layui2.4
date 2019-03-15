@@ -1,0 +1,422 @@
+<div class="layui-fluid" id="VIEW-test-index" lay-title="表单">
+    <div class="loins-view">
+        <form class="layui-form" action="" lay-filter="component-form-loins">
+            <div>
+                <div class="query-content">
+                    <div class="layui-inline">
+                        <label class="layui-form-label-sm">验证手机</label>
+                        <div class="loins-layui-input-inline">
+                            <input type="tel" name="phone1" id="phone1" autocomplete="off" class="layui-input-sm">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label-sm">验证手机</label>
+                        <div class="loins-layui-input-inline">
+                            <input type="tel" name="phone1" id="phone2" autocomplete="off" class="layui-input-sm">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-collapse" lay-filter="loins" lay-accordion>
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title query-more">高级查询</h2>
+                        <div class="layui-colla-content">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label-sm">验证手机</label>
+                                    <div class="loins-layui-input-inline">
+                                        <input type="tel" name="phone" id="phone" autocomplete="off" class="layui-input-sm layui-form">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="layui-row">
+                        <div class="layui-col-xs6">
+                            <div class="grid-demo grid-demo-bg1">
+                                <li class="layui-nav-item layui-hide-xs loins-search" lay-unselect>
+                                    <input type="text" placeholder="Search / 请输入查询条件回车..." autocomplete="off" class="layui-input layui-search-input" nepadmin-event="serach">
+                                </li>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs6">
+                            <div class="grid-demo query-confirm">
+                                <div class="layui-btn layui-btn-primary  layui-btn-sm" id="loins-refresh">重置</div>
+                                <button class="layui-btn  layui-btn-sm" lay-submit lay-filter="component-form-loins">查询</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+        </form>
+        <div class="layui-inline">
+            <label class="layui-form-label width_auto text-r" style="margin-top:2px">省市县：</label>
+            <div class="layui-input-inline" style="width:400px" id="cityTest">
+                <input type="text" autocomplete="on" class="layui-input" id="city-picker" name="city-picker" readonly="readonly" data-toggle="city-picker" placeholder="请选择">
+            </div>
+        </div>
+        </div>
+        <table class="layui-hide" id="test" lay-filter="test"></table>
+
+        <script type="text/html" id="barDemo1">
+            <a class="layui-btn layui-btn-sm" lay-event="detail">关闭当前弹出框并执行回调函数</a>
+            <a class="layui-btn layui-btn-sm" lay-event="edit">table.reload</a>
+            <a class="layui-btn layui-btn-sm" lay-event="del">新建</a>
+            <a class="layui-btn layui-btn-sm" lay-event="tableInsCall">tableIns.reload</a>
+            <a class="layui-btn layui-btn-sm" lay-event="loins">响应式布局</a>
+            <!-- <div class="layui-btn layui-btn-sm">添加商品</div>
+                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" data-type="lower">下架</div>
+                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" data-type="del">删除</div>
+                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" data-type="move">移动分类</div>
+                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" data-type="refresh">刷新页面</div> -->
+        </script>
+        <script type="text/html" id="barDemo">
+            <span class="layui-icon layui-icon-detail loins-detail" lay-event="detail1"></span>&nbsp;&nbsp;
+            <span class="layui-icon layui-icon-edit-square loins-edit" lay-event="update1"></span>&nbsp;&nbsp;
+            <span class="layui-icon layui-icon-delete loins-delete" lay-event="del1"></span>
+            <!-- <div class="layui-btn layui-btn-primary layui-btn-xs">详情</div>
+            <div class="layui-btn layui-btn-xs layui-btn-primary table-action">修改</div>
+            <div class="layui-btn layui-btn-xs layui-btn-primary table-action">删除</div> -->
+            <!-- <div class="layui-btn layui-btn-xs layui-btn-primary table-action" data-type="move">移动分类</div>
+            <div class="layui-btn layui-btn-xs layui-btn-primary table-action" data-type="refresh">刷新页面</div> -->
+        </script>
+    </div>
+    <style>
+        .layui-table tbody tr:hover,
+        .layui-table thead tr,
+        .layui-table-click,
+        .layui-table-header,
+        .layui-table-hover,
+        .layui-table-mend,
+        .layui-table-patch,
+        .layui-table-tool {
+            background-color: #fff !important;
+        }
+    </style>
+    <script>
+        layui.config({
+            version: new Utils().VersionTimeStamp()
+        });
+        layui.extend({
+            // index: 'lib/index' //主入口模块
+            citypicker: 'lib/city-picker/city-picker' // {/}的意思即代表采用自有路径，即不跟随 base 路径
+        })
+        layui.use(['laydate', 'laypage', 'layer', 'form', 'table', 'carousel', 'upload', 'element', 'slider', 'citypicker'], function() {
+            var laydate = layui.laydate //日期
+                ,
+                laypage = layui.laypage //分页
+                ,
+                layer = layui.layer //弹层
+                ,
+                table = layui.table //表格
+                ,
+                carousel = layui.carousel //轮播
+                ,
+                upload = layui.upload //上传
+                ,
+                element = layui.element //元素操作
+                ,
+                slider = layui.slider //滑块
+                ,
+                form = layui.form,
+                $ = layui.jquery,
+                cityPicker = layui.citypicker;
+            var currentPicker = new cityPicker("#city-picker", {
+                provincename: "provinceId",
+                cityname: "cityId",
+                districtname: "districtId",
+                level: 'districtId', // 级别
+            });
+
+            currentPicker.setValue("河南省/信阳市/新县");
+            // layer.msg('提示信息');
+            // var active = {
+            //     reset: function() {
+            //         debugger
+            //         //表单初始赋值
+            //         // form.val('component-form-loins', {
+            //         //     "iphone": "17621890215", // "name": "value"
+            //         //     "iphone1": "17621890215", // "name": "value"
+            //         // })
+            //     }
+            // }
+            // $('#loins-btn .loins').on('click', function() {
+            //     var othis = $(this),
+            //         method = othis.data('method');
+            //     active[method] ? active[method].call(this, othis) : '';
+            // });
+            element.init();
+            //监听折叠
+            element.on('collapse(loins)', function(data) {
+                layer.msg('展开状态：' + data.show);
+            });
+            form.render(null, 'component-form-loins');
+            //监听提交
+            form.on('submit(component-form-loins)', function(data) {
+                layer.msg('查询参数：' + JSON.stringify(data));
+                return false;
+            });
+            $(document).on('click', '#loins-refresh', function() {
+                form.val('component-form-loins', {
+                    "phone": "17621890215",
+                    "phone1": "17621890215",
+                })
+            });
+
+            //执行一个 table 实例
+            // var tableIns = 
+            table.render({
+                elem: '#test',
+                skin: 'row' //行边框风格
+                    ,
+                // even: true //开启隔行背景
+                // ,
+                size: 'sm', //小尺寸的表格
+                // height: 420,
+                url: '/json/table.json' //数据接口
+                    ,
+                title: '用户表',
+                page: true //开启分页
+                    ,
+                height: 'full-300',
+                cellMinWidth: 80,
+                toolbar: '#barDemo1' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                    ,
+                totalRow: true //开启合计行
+                    ,
+                cols: [
+                    [ //表头
+                        {
+                            type: 'checkbox',
+                            fixed: 'left'
+                        }, {
+                            field: 'id',
+                            title: 'ID',
+                            sort: true,
+                            fixed: 'left',
+                            totalRowText: '合计：',
+                            width: 80
+                        }, {
+                            title: '操作',
+                            align: 'center',
+                            toolbar: '#barDemo',
+                            fixed: 'left',
+                        }, {
+                            field: 'username',
+                            title: '用户名',
+                        }, {
+                            field: 'experience',
+                            title: '积分',
+                            sort: true,
+                            totalRow: true,
+                        }, {
+                            field: 'sex',
+                            title: '性别',
+                            sort: true
+                        }, {
+                            field: 'score',
+                            title: '评分',
+                            sort: true,
+                            totalRow: true
+                        }, {
+                            field: 'city',
+                            title: '城市',
+                        }, {
+                            field: 'sign',
+                            title: '签名',
+                        }, {
+                            field: 'classify',
+                            title: '职业',
+                        }, {
+                            field: 'wealth',
+                            title: '财富',
+                            sort: true,
+                            totalRow: true
+                        },
+                    ]
+                ],
+                done: function(res, curr, count) {
+                    debugger
+                    // 重定义打印导出功能
+                    $('div[title="打印"]').attr('lay-event', 'LOINS_PRINT');
+                    $('div[title="导出"]').attr('lay-event', 'LOINS_EXPORT');
+                }
+            });
+            // table.reload()
+            //监听头工具栏事件
+            // $('div[title="打印"]').unbind().click(function() {
+            //     alert(111)
+            // });
+            table.on('toolbar(test)', function(obj) {
+                debugger
+                var checkStatus = table.checkStatus(obj.config.id),
+                    data = checkStatus.data; //获取选中的数据
+                switch (obj.event) {
+                    case 'detail':
+                        layer.msg('添加');
+                        var that = this;
+                        layer.loins = 'username'
+                            //多窗口模式，层叠置顶
+                        layer.open({
+                            type: 2 //此处以iframe举例
+                                ,
+                            title: '当你选择该窗体时，即会在最顶端',
+                            area: ['390px', '260px'],
+                            shade: 0,
+                            maxmin: true,
+                            offset: [ //为了演示，随机坐标
+                                Math.random() * ($(window).height() - 300), Math.random() * ($(window).width() - 390)
+                            ],
+                            content: './index.html#/test/open',
+                            btn: ['全部关闭'] //只是为了演示
+                                ,
+                            // yes: function() {
+                            //     $(that).click();
+                            // },
+                            yes: function() {
+                                layer.closeAll();
+                            }
+
+                            ,
+                            zIndex: layer.zIndex, //重点1
+                            end: function() {
+                                layer.msg('结束');
+                            },
+                            success: function(layero) {
+                                layer.setTop(layero); //重点2
+                            }
+                        });
+
+                        break;
+                    case 'edit':
+                        // if (data.length === 0) {
+                        //     layer.msg('请选择一行');
+                        // } else if (data.length > 1) {
+                        //     layer.msg('只能同时编辑一个');
+                        // } else {
+                        //     layer.alert('编辑 [id]：' + checkStatus.data[0].id);
+                        // }
+                        table.reload('test', {
+                            where: {},
+                            method: 'POST',
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            },
+                            done: function(res, curr, count) {
+                                this.where = {};
+                            }
+                        });
+                        break;
+                    case 'del':
+                        var that = this;
+                        layer.loins = 'username'
+                            //多窗口模式，层叠置顶
+                        layer.open({
+                            type: 2 //此处以iframe举例
+                                ,
+                            title: '当你选择该窗体时，即会在最顶端',
+                            area: ['60%', '60%'],
+                            shade: 0,
+                            maxmin: true,
+
+                            content: './index.html#/test/update',
+                            btn: ['全部关闭'] //只是为了演示
+                                ,
+                            // yes: function() {
+                            //     $(that).click();
+                            // },
+                            yes: function() {
+                                layer.closeAll();
+                            }
+
+                            ,
+                            zIndex: layer.zIndex //重点1
+                                ,
+                            success: function(layero) {
+
+                                layer.setTop(layero); //重点2
+                            }
+                        });
+                        break;
+                    case 'tableInsCall':
+                        tableIns.reload('test', {
+                            where: {},
+                            method: 'POST',
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            },
+                            done: function(res, curr, count) {
+                                this.where = {};
+                            }
+                        });
+                        break;
+                    case 'LOINS_PRINT':
+                        layer.open({
+                            type: 2 //此处以iframe举例
+                                ,
+                            title: '当你选择该窗体时，即会在最顶端',
+                            area: ['60%', '60%'],
+                            shade: 0,
+                            maxmin: true,
+                            offset: [ //为了演示，随机坐标
+                                Math.random() * ($(window).height() - 300), Math.random() * ($(window).width() - 390)
+                            ],
+                            content: './index.html#/test/print',
+                            btn: ['全部关闭'] //只是为了演示
+                                ,
+                            yes: function() {
+                                layer.closeAll();
+                            },
+                            zIndex: layer.zIndex, //重点1
+                        });
+                        break;
+                    case 'LOINS_EXPORT':
+                        break;
+                    case 'loins':
+                        window.location.href = "./index.html#/test/test"
+                        break;
+                };
+            });
+
+            //监听行工具事件
+            table.on('tool(test)', function(obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                debugger
+                var data = obj.data //获得当前行数据
+                    ,
+                    layEvent = obj.event; //获得 lay-event 对应的值
+                if (layEvent === 'detail1') {
+                    layer.msg('查看操作');
+                    layer.open({
+                        type: 2 //此处以iframe举例
+                            ,
+                        title: '当你选择该窗体时，即会在最顶端',
+                        area: ['60%', '60%'],
+                        shade: 0,
+                        maxmin: true,
+                        offset: [ //为了演示，随机坐标
+                            Math.random() * ($(window).height() - 300), Math.random() * ($(window).width() - 390)
+                        ],
+                        content: './index.html#/test/search',
+                        btn: ['全部关闭'] //只是为了演示
+                            ,
+                        yes: function() {
+                            layer.closeAll();
+                        },
+                        zIndex: layer.zIndex, //重点1
+                    });
+                } else if (layEvent === 'del1') {
+                    layer.confirm('真的删除行么', function(index) {
+                        obj.del(); //删除对应行（tr）的DOM结构
+                        layer.close(index);
+                        //向服务端发送删除指令
+                    });
+                } else if (layEvent === 'update1') {
+                    layer.msg('编辑操作');
+                }
+            });
+        });
+    </script>

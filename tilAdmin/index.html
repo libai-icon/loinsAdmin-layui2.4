@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>loins</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="static/plugins/layui/css/layui.css?t=20180530-2" media="all">
+    <link rel="stylesheet" href="til/css/admin.css?t=20180530-2" media="all">
+    <link rel="stylesheet" href="til/css/loins.css?t=20180530-2" media="all">
+    <link href="til/css/shCore.css" rel="stylesheet">
+    <link href="til/css/shThemeEclipse.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="til/css/formSelects-v4.css" />
+    <script src="til/lib/city-picker/city-picker.data.js"></script>
+    <script src="til/js/util.js"></script>
+    <link href="til/lib/city-picker/city-picker.css" rel="stylesheet" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="static/plugins/layui/layui.js"></script>
+    <script>
+        layui.config({
+            //指定 admin 项目路径
+            base: './til/',
+            version: Date.parse(new Date()),
+            debug: true
+        }).use('index');
+    </script>
+</body>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="nepadmin/ie8hack/html5shiv.min.js"></script>
+<script src="nepadmin/ie8hack/respond.min.js"></script>
+<script src="nepadmin/ie8hack/placeholders.min.js"></script>
+<![endif]-->
+
+</html>

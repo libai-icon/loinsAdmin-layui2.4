@@ -1,0 +1,187 @@
+<div class="layui-fluid" id="VIEW-test-index" class="VIEW-test-index" lay-title="数据统计">
+    <div>
+        <header id="header">
+            <ul>
+                <li>header1</li>
+                <li>header2</li>
+                <li>header3</li>
+                <li>header4</li>
+                <li>header5</li>
+            </ul>
+            <div>
+                icon
+            </div>
+        </header>
+
+        <section id="main">
+            <div class="left">
+                left
+            </div>
+            <div class="center">
+                center
+            </div>
+            <div class="right">
+                right
+            </div>
+        </section>
+
+        <footer id="foot">
+            footer
+        </footer>
+    </div>
+
+</div>
+
+<script>
+    layui.use(['admin', 'echarts', 'table'], function(admin, code) {
+        var $ = layui.jquery,
+            layer = layui.layer, //独立版的layer无需执行这一句
+            table = layui.table;
+        parent.layer.loins;
+
+    })
+</script>
+<style>
+    /*  * {
+        margin: 0px;
+        padding: 0px;
+        font-size: 48px;
+        text-align: center;
+        box-sizing: border-box;
+    } */
+    
+    #header,
+    #main,
+    /*给头部/主体/底部同时设置宽/高/背景色, 水平垂直居中 */
+    
+    #foot {
+        height: 100px;
+        width: 1200px;
+        background-color: pink;
+        line-height: 100px;
+        margin: 0 auto;
+        min-width: 300px;
+    }
+    
+    #header ul {
+        width: 80%;
+    }
+    
+    #header ul li {
+        float: left;
+        width: 20%;
+        list-style: none;
+        font-size: 20px;
+    }
+    
+    #header div {
+        /* li 全部浮动,父盒子ul塌陷,相当于不存在了，div才能浮动到ul右侧*/
+        display: none;
+        width: 50px;
+        height: 50px;
+        background-color: yellow;
+        float: right;
+        line-height: 50px;
+        font-size: 20px;
+        margin-top: 25px;
+        margin-right: 25px;
+    }
+    
+    #main {
+        height: 520px;
+        /* 给主体设置高度/文字垂直居中/上下边框*/
+        line-height: 520px;
+        border-bottom: 10px solid white;
+        border-top: 10px solid white;
+    }
+    /* 将主体分成三部分,左:中:右=1:2:1 分别设置不同背景色 浮动*/
+    
+    #main .left {
+        width: 25%;
+        height: 500px;
+        background-color: greenyellow;
+        float: left;
+        box-sizing: border-box;
+    }
+    
+    #main .center {
+        width: 50%;
+        height: 500px;
+        background-color: orange;
+        border-right: 10px solid white;
+        border-left: 10px solid white;
+        float: left;
+        box-sizing: border-box;
+    }
+    
+    #main .right {
+        width: 25%;
+        height: 500px;
+        background-color: paleturquoise;
+        float: left;
+        box-sizing: border-box;
+    }
+    
+    @media screen and (max-width: 1200px) {
+        /* PC端头部/主体/底部宽度100%显示*/
+        #header,
+        #main,
+        #foot {
+            width: 100%;
+        }
+    }
+    /*pad端主体只显示左:中近似=1:2,center左边有border部分，右border隐藏*/
+    
+    @media screen and (max-width:900px) {
+        #main .right {
+            display: none;
+        }
+        #main .left {
+            width: 35%;
+        }
+        #main .center {
+            width: 65%;
+            border-right: hidden;
+        }
+    }
+    /*手机端整体高度增大,主体左中右浮动取消, 宽度都为100%*/
+    
+    @media screen and (max-width: 550px) {
+        #main {
+            height: 920px;
+        }
+        #main .left {
+            float: none;
+            width: 100%;
+            height: 250px;
+            line-height: 250px;
+        }
+        /* center左右border改为上下border,为了不挤压内容（IE盒子）,主体总宽度加20px*/
+        #main .center {
+            float: none;
+            width: 100%;
+            height: 400px;
+            line-height: 400px;
+            border-left: hidden;
+            border-bottom: 10px solid white;
+            border-top: 10px solid white;
+        }
+        #main .right {
+            /*主体右端重新显示*/
+            display: block;
+            float: none;
+            width: 100%;
+            height: 250px;
+            line-height: 250px;
+        }
+    }
+    
+    #header ul {
+        /*头部导航栏ul隐藏,右上角小div由隐藏改为显示  */
+        display: none;
+    }
+    
+    #header div {
+        display: block;
+    }
+</style>

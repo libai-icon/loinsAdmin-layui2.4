@@ -1,0 +1,143 @@
+<div class="layui-fluid" id="VIEW-test-index" lay-title="表单">
+    <div class="loins-view">
+
+        <table class="layui-hide" id="test" lay-filter="test" style="width:100%;"></table>
+        <script type="text/html" id="barDemo">
+
+            <span class="layui-icon layui-icon-plus-square loins-detail" lay-event="TESTCONTENTTABLE-content"></span>&nbsp;&nbsp;
+            <!-- <span class="layui-icon layui-icon-edit-square loins-edit" lay-event="update1"></span>&nbsp;&nbsp;layui-icon-minus-square
+            <span class="layui-icon layui-icon-delete loins-delete" lay-event="del1"></span> -->
+
+        </script>
+    </div>
+    <script>
+        layui.config({
+            version: new Utils().VersionTimeStamp()
+        });
+        layui.extend({
+
+        })
+        var cols = [ //表头
+            {
+                title: '操作',
+                align: 'center',
+                toolbar: '#barDemo',
+            }, {
+                type: 'checkbox',
+            }, {
+                field: 'id',
+                title: 'ID',
+                sort: true,
+                totalRowText: '合计：',
+                width: 80
+            }, {
+                field: 'username',
+                title: '用户名',
+            }, {
+                field: 'experience',
+                title: '积分',
+                sort: true,
+                totalRow: true,
+            }, {
+                field: 'sex',
+                title: '性别',
+                sort: true
+            }, {
+                field: 'score',
+                title: '评分',
+                sort: true,
+                totalRow: true
+            }, {
+                field: 'city',
+                title: '城市',
+            }, {
+                field: 'sign',
+                title: '签名',
+            }, {
+                field: 'classify',
+                title: '职业',
+            }, {
+                field: 'wealth',
+                title: '财富',
+                sort: true,
+                totalRow: true
+            }, {
+                field: 'wealth',
+                title: '财富',
+                sort: true,
+                totalRow: true
+            }, {
+                field: 'wealth',
+                title: '财富',
+                sort: true,
+                totalRow: true
+            }, {
+                field: 'wealth',
+                title: '财富',
+                sort: true,
+                totalRow: true
+            }, {
+                field: 'wealth',
+                title: '财富',
+                sort: true,
+                totalRow: true
+            }, {
+                field: 'wealth',
+                title: '财富',
+                sort: true,
+                totalRow: true
+            },
+        ]
+        layui.use(['table'], function() {
+            var table = layui.table, //表格
+                $ = layui.jquery;
+            table.render({
+                elem: '#test',
+                skin: 'row' //行边框风格
+                    ,
+                // even: true //开启隔行背景
+                // ,
+                size: 'sm', //小尺寸的表格
+                // height: 420,
+                url: '/json/table.json' //数据接口
+                    ,
+                title: '用户表',
+                page: true //开启分页
+                    ,
+                height: 'full-100',
+                cellMinWidth: 80,
+                totalRow: true //开启合计行
+                    ,
+                cols: [
+                    cols
+                ],
+                done: function(res, curr, count) {
+                    // 重定义打印导出功能
+                    $('div[title="打印"]').attr('lay-event', 'LOINS_PRINT');
+                    $('div[title="导出"]').attr('lay-event', 'LOINS_EXPORT');
+                }
+            });
+
+            //监听行工具事件
+            table.on('tool(test)', function(obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data //获得当前行数据,
+                layEvent = obj.event; //获得 lay-event 对应的值
+                if (layEvent === 'TESTCONTENTTABLE-content') {
+                    var _html = `<td colspan=${cols.length+1}><div class="layui-col-sm3 layui-col-xs12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">霸气的平头哥名号里藏着阿里怎样的“芯”思？</div>
+                        <div class="layui-card-body">
+                        在相当长的时间里，阿里的基因是电商，而不是技术。但现在情况显然发生了改变。马云自然看到了打造生态的重要性，而半导体芯片在阿里生态中处于上游...
+                        </div>
+                        <div class="layui-card-footer">
+                        <div class="layui-btn layui-btn-sm layui-btn-primary">操作一</div>
+                        <div class="layui-btn layui-btn-sm layui-btn-primary">操作二</div>
+                        </div>
+                    </div>
+                    </div></td>`
+                    new Utils().LoinsContent(this, _html, $)
+
+                }
+            });
+        });
+    </script>
